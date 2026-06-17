@@ -47,8 +47,6 @@ allowed-tools: Read, Write, Bash, Grep, AskUserQuestion
 
 ### 可从 Memory 读取的信息
 
-在 Profile 允许时，可读取：
-
 - 用户姓名
 - 工号
 - 所属部门
@@ -122,11 +120,11 @@ allowed-tools: Read, Write, Bash, Grep, AskUserQuestion
 
 1. **识别意图。** 判断用户是咨询制度，还是要生成/提交请假申请。
 2. **抽取信息。** 从对话中抽取请假类型、时间、时长、事由、审批人、输出形式等字段。
-3. **读取 Memory。** 按 Profile 指示读取姓名、部门、工号、直属领导、常用审批人等稳定信息。
+3. **读取 Memory。** 读取姓名、部门、工号、直属领导、常用审批人等稳定信息。
 4. **检查完整性。** 提交前至少确认请假人、部门、请假类型、开始时间、结束时间、时长、事由、审批人。
 5. **生成草稿。** 按用户需要生成申请文本、表单字段或即时消息。
 6. **提交前确认。** 若用户要求发送、提交或转交，必须先展示最终内容并等待确认。
-7. **更新 Memory。** 若用户提供或更正了长期复用信息，按 Profile 规则写入 Profile Memory。
+7. **更新 Memory。** 若用户提供或更正了长期复用信息，则更新这些稳定事实；一次性请假内容不应写入 Memory。
 
 ## 质量约束
 
@@ -150,9 +148,9 @@ allowed-tools: Read, Write, Bash, Grep, AskUserQuestion
 
 ## Memory 使用
 
-请假场景下，可长期复用的身份与审批链信息应由 Profile Memory 管理。Skill 只按 Profile 声明读取和写入，不自行扩大记忆范围。
+请假场景下，可长期复用的信息限于稳定身份与常用审批链。
 
-应写入 Profile Memory 的典型信息：
+适合写入 Memory 的典型信息：
 
 - 工号
 - 部门
@@ -163,7 +161,7 @@ allowed-tools: Read, Write, Bash, Grep, AskUserQuestion
 - 常用工作交接人
 - 常用请假系统入口
 
-不应写入 Profile Memory 的信息：
+不应写入 Memory 的信息：
 
 - 本次请假事由
 - 本次请假日期
